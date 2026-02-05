@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { EntryChunk } from '../src/entry-chunk'
+import { EntryChunk } from '../src/entry-chunk.js'
 
 test('encodeEntryChunk', async () => {
   const entries = new EntryChunk()

@@ -9,11 +9,8 @@ export const CID_SIZE_BYTES = 36
 export const CHUNK_THRESHOLD = 1_048_576
 
 export class EntryChunk {
-  next?: CID
   entries: Array<Uint8Array> = []
-  constructor(next?: CID) {
-    this.next = next
-  }
+  constructor(public next?: CID) {}
   add(entry: Uint8Array) {
     this.entries.push(entry)
   }

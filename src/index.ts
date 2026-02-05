@@ -1,3 +1,3 @@
-export { Protocol, Provider } from './provider'
-export { Advertisement } from './advertisement'
-export { EntryChunk } from './entry-chunk'
+export { Protocol, Provider } from './provider.js'
+export { Advertisement } from './advertisement.js'
+export { EntryChunk } from './entry-chunk.js'

@@ -2,8 +2,8 @@ import { expect, test } from 'vitest'
 import { CID } from 'multiformats'
 import { generateKeyPair } from '@libp2p/crypto/keys'
 import { peerIdFromPrivateKey } from '@libp2p/peer-id'
-import { Provider, Protocol, TRUSTLESS_GATEWAY_PREFIX } from '../src/provider'
-import { Advertisement } from '../src/advertisement'
+import { Provider, Protocol, TRUSTLESS_GATEWAY_PREFIX } from '../src/provider.js'
+import { Advertisement } from '../src/advertisement.js'
 
 test('trustless gateway provider', async () => {
   const privKey = await generateKeyPair('Ed25519')

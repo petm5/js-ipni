@@ -4,7 +4,7 @@ import { RecordEnvelope } from '@libp2p/peer-record'
 import * as Block from 'multiformats/block'
 import type { BlockView } from 'multiformats/block/interface'
 import * as dagCbor from '@ipld/dag-cbor'
-import { Provider } from './provider'
+import { Provider } from './provider.js'
 
 // https://github.com/ipni/go-libipni/blob/afe2d8ea45b86c2a22f756ee521741c8f99675e5/ingest/schema/envelope.go#L20-L22
 const AD_SIG_CODEC = new TextEncoder().encode('/indexer/ingest/adSignature')
