@@ -5,6 +5,7 @@
   "scripts": {
     "test": "vitest"
   },
+  "main": "src/index.ts",
   "dependencies": {
     "@ipld/dag-cbor": "^9.2.5",
     "@libp2p/interface": "^3.1.0",
