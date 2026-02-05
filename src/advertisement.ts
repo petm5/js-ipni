@@ -9,18 +9,20 @@ import { Provider } from './provider'
 // https://github.com/ipni/go-libipni/blob/afe2d8ea45b86c2a22f756ee521741c8f99675e5/ingest/schema/envelope.go#L20-L22
 const AD_SIG_CODEC = new TextEncoder().encode('/indexer/ingest/adSignature')
 
+export interface AdvertisementParams {
+  peerId: string,
+  entryCid: CID,
+  provider: Provider,
+  context: Uint8Array,
+  prevCid?: CID,
+  isRm?: false,
+}
+
 export class Advertisement {
-  constructor(
-    public peerId: string,
-    public entryCid: CID,
-    public provider: Provider,
-    public context: Uint8Array,
-    public prevCid?: CID,
-    public isRm?: false
-  ) {}
+  constructor(private parameters: AdvertisementParams) {}
 
   async encodeAndSign() {
-    const { peerId, prevCid, entryCid, provider, context, isRm } = this
+    const { peerId, prevCid, entryCid, provider, context, isRm } = this.parameters
 
     const metadata = provider.encodeMetadata()
 
