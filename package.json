@@ -2,7 +2,9 @@
   "name": "js-ipni",
   "version": "0.0.1",
   "description": "Generate IPNI advertisements for IPFS CIDs",
+  "type": "module",
   "scripts": {
+    "prepare": "tsc",
     "test": "vitest"
   },
   "main": "src/index.ts",
