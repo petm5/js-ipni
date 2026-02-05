@@ -4,15 +4,15 @@ import { RecordEnvelope } from '@libp2p/peer-record'
 import * as Block from 'multiformats/block'
 import type { BlockView } from 'multiformats/block/interface'
 import * as dagCbor from '@ipld/dag-cbor'
-import { Provider } from './provider.ts'
+import { Provider } from './provider'
 
 // https://github.com/ipni/go-libipni/blob/afe2d8ea45b86c2a22f756ee521741c8f99675e5/ingest/schema/envelope.go#L20-L22
 const AD_SIG_CODEC = new TextEncoder().encode('/indexer/ingest/adSignature')
 
 export class Advertisement {
   constructor(
+    public peerId: string,
     public entryCid: CID,
-    public metadata: Uint8Array,
     public provider: Provider,
     public context: Uint8Array,
     public prevCid?: CID,
@@ -20,7 +20,7 @@ export class Advertisement {
   ) {}
 
   async encodeAndSign() {
-    const { prevCid, entryCid, provider, context, isRm } = this
+    const { peerId, prevCid, entryCid, provider, context, isRm } = this
 
     const metadata = provider.encodeMetadata()
 
@@ -28,7 +28,7 @@ export class Advertisement {
     const serializedAd = new Uint8Array([
       ...prevCid?.bytes ?? new Uint8Array([]),
       ...entryCid.bytes,
-      ...new TextEncoder().encode(provider.peerId),
+      ...new TextEncoder().encode(peerId),
       ...new TextEncoder().encode(provider.addresses.map(a => a.toString()).join('')),
       ...metadata,
       isRm ? 1 : 0 // IsRm field is always false
@@ -47,13 +47,13 @@ export class Advertisement {
     // IPNI Advertisement - https://github.com/ipni/specs/blob/main/IPNI.md#advertisements
     return {
       ...(prevCid ? { PreviousID: prevCid } : {}),
-      Provider: provider.peerId,
+      Provider: peerId,
       Addresses: provider.addresses,
       Entries: entryCid,
       ContextID: context,
       Metadata: metadata,
-      IsRm: false,
-      Signature: signature
+      IsRm: !!isRm,
+      Signature: signature,
     }
   }
 

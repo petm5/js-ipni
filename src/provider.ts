@@ -6,16 +6,16 @@ import type { PrivateKey } from '@libp2p/interface'
 * @see https://github.com/ipni/specs/blob/main/IPNI.md#metadata
 * @see https://github.com/multiformats/go-multicodec/blob/f57c73871939a0d533597e1dae416dae92533fb6/code_table.go#L459-L460
 */
-const TRUSTLESS_GATEWAY_PREFIX = new Uint8Array(varint.encode(0x0920))
+export const TRUSTLESS_GATEWAY_PREFIX = new Uint8Array(varint.encode(0x0920))
 
 /**
 * Entries are provided by an IPNS record
 * Must be followed by the serialized record
 * @see https://github.com/multiformats/go-multicodec/blob/f57c73871939a0d533597e1dae416dae92533fb6/code_table.go#L435-L436
 */
-const IPNS_RECORD_PREFIX = new Uint8Array(varint.encode(0x0300))
+export const IPNS_RECORD_PREFIX = new Uint8Array(varint.encode(0x0300))
 
-enum Protocol {
+export enum Protocol {
   TrustlessGateway,
   IpnsRecord,
 }
@@ -23,7 +23,6 @@ enum Protocol {
 /** Defines the peer that provides the entries */
 export class Provider {
   constructor(
-    public peerId: string,
     public privateKey: PrivateKey,
     public addresses: Array<string>,
     public protocol: Protocol,
