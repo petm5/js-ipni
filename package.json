@@ -7,7 +7,8 @@
     "prepare": "tsc",
     "test": "vitest"
   },
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@ipld/dag-cbor": "^9.2.5",
     "@libp2p/interface": "^3.1.0",
