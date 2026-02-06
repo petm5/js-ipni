@@ -24,6 +24,6 @@ todo, see tests and [generate-ipni.ts](https://github.com/petm5/petermarshall.ca
 Based on the following reference implementations:
 
 - [ipni/go-libipni/ingest/schema/envelope.go](https://github.com/ipni/go-libipni/blob/main/ingest/schema/envelope.go)
-- [multiformats/go-multicodec/code_table.go](https://github.com/multiformats/go-multicodec/blob/main/code_table.go)
+- [multiformats/go-multicodec/code_table.go](https://github.com/multiformats/go-multicodec/blob/master/code_table.go)
 - [ipni/go-naam](https://github.com/ipni/go-naam/)
 - [storacha/ipni](https://github.com/storacha/ipni)
