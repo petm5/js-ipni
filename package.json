@@ -1,7 +1,7 @@
 {
   "name": "js-ipni",
   "version": "0.0.1",
-  "description": "Generate IPNI advertisements for IPFS CIDs",
+  "description": "Create signed IPNI advertisements",
   "type": "module",
   "scripts": {
     "prepare": "tsc",
