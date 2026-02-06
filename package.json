@@ -2,6 +2,7 @@
   "name": "js-ipni",
   "version": "0.0.1",
   "description": "Create signed IPNI advertisements",
+  "author": "petm5",
   "type": "module",
   "scripts": {
     "prepare": "tsc",
