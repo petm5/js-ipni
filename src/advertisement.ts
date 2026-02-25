@@ -4,6 +4,7 @@ import { RecordEnvelope } from '@libp2p/peer-record'
 import * as Block from 'multiformats/block'
 import type { BlockView } from 'multiformats/block/interface'
 import * as dagCbor from '@ipld/dag-cbor'
+import * as dagJson from '@ipld/dag-json'
 import type { PrivateKey } from '@libp2p/interface'
 import { publicKeyToProtobuf } from '@libp2p/crypto/keys'
 import { Provider } from './provider.js'
@@ -106,6 +107,7 @@ export class AdvertisementHead {
 
   async export(): Promise<BlockView> {
     const signedHead = await this.encodeAndSign()
-    return await Block.encode({ value: signedHead, codec: dagCbor, hasher: sha256 })
+    // Head only supports DAG-JSON - https://github.com/ipni/go-libipni/blob/91107b948b1ed8c8680a3eab098fcc9f79ab469a/dagsync/ipnisync/head/signedhead.go#L47
+    return await Block.encode({ value: signedHead, codec: dagJson, hasher: sha256 })
   }
 }

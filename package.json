@@ -12,6 +12,7 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@ipld/dag-cbor": "^9.2.5",
+    "@ipld/dag-json": "^10.2.6",
     "@libp2p/interface": "^3.1.0",
     "@libp2p/peer-id": "^6.0.4",
     "@libp2p/peer-record": "^9.0.5",
