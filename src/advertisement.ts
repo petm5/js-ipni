@@ -85,16 +85,9 @@ export class AdvertisementHead {
       ...headCid.bytes,
       ...topic ? new TextEncoder().encode(topic) : []
     ])
-    const serializedHeadDigest = (await sha256.digest(serializedHead)).bytes
 
-    const record = {
-      codec: AD_SIG_CODEC,
-      domain: 'indexer',
-      marshal: () => serializedHeadDigest,
-      equals: () => false
-    }
-
-    const signature = (await RecordEnvelope.seal(record, privateKey)).marshal().subarray()
+    // Raw sinature - https://github.com/ipni/go-libipni/blob/91107b948b1ed8c8680a3eab098fcc9f79ab469a/dagsync/ipnisync/head/signedhead.go#L172
+    const signature = (await privateKey.sign(serializedHead)).buffer
 
     // SignedHead schema - https://github.com/ipni/specs/blob/main/IPNI_HTTP_PROVIDER.md#response
     return {
