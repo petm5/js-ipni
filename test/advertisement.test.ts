@@ -3,7 +3,7 @@ import { CID } from 'multiformats'
 import { generateKeyPair } from '@libp2p/crypto/keys'
 import { peerIdFromPrivateKey } from '@libp2p/peer-id'
 import { Provider, Protocol, TRUSTLESS_GATEWAY_PREFIX } from '../src/provider.js'
-import { Advertisement } from '../src/advertisement.js'
+import { Advertisement, AdvertisementHead } from '../src/advertisement.js'
 
 test('trustless gateway provider', async () => {
   const privKey = await generateKeyPair('Ed25519')
@@ -22,8 +22,8 @@ test('trustless gateway provider', async () => {
     provider,
     context,
   })
-  const encoded = await advertisement.encodeAndSign()
-  expect(encoded).toMatchObject({
+  const encodedAd = await advertisement.encodeAndSign()
+  expect(encodedAd).toMatchObject({
     Provider: peerId.toString(),
     Addresses: addresses,
     Entries: entryCid,
@@ -31,5 +31,15 @@ test('trustless gateway provider', async () => {
     Metadata: new Uint8Array([...TRUSTLESS_GATEWAY_PREFIX]),
     IsRm: false
   })
-  expect(encoded.PreviousID, 'PreviousID is not set').toBeFalsy()
+  expect(encodedAd.PreviousID, 'PreviousID is not set').toBeFalsy()
+  const exportedAd = await advertisement.export()
+  const head = new AdvertisementHead({
+    headCid: exportedAd.cid,
+    privateKey: privKey
+  })
+  const encodedHead = await head.encodeAndSign()
+  expect(encodedHead).toMatchObject({
+    head: exportedAd.cid
+  })
+  const exportedHead = await head.export()
 })
